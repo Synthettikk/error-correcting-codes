@@ -6,7 +6,7 @@ A pedagogical project to learn error-correcting codes (ECC) from scratch.
 
 Implement and understand classic ECC:
 - **Hamming SECDED** ✅ (done)
-- **Reed Solomon codes** (in progress)
+- **Reed Solomon codes** ✅ (done)
 - **LDPC codes** (in progress)
 
 Each module includes **theory**, **implementation**, and **tests** to validate understanding.
@@ -59,6 +59,11 @@ Hamming Demo - Encoding and error correction
 python -m demos.demo_hamming
 ```
 
+Reed-Solomon Demo - Encoding and error correction
+```bash
+python -m demos.demo_rs
+```
+
 ## 📁 Project Structure
 
 ```python
@@ -66,13 +71,15 @@ error-correcting-codes/
 ├── src/
 │   ├── __init__.py
 │   ├── hamming.py         # Hamming SECDED implementation
-│   ├── rs.py              # (coming soon) RS codes
+│   ├── rs.py              # Reed-Solomon codes implementation
 │   ├── ldpc.py            # (coming soon) LDPC codes
 │   └── utils.py           # Utilities
-├── tests/                 # Pytest tests
-│   └── test_hamming.py    
-├── demos/                 # Interactive demos
-│   └── demo_hamming.py    
+├── tests/                 
+│   ├── test_hamming.py    # Pytest tests
+│   ├── test_rs.py   
+├── demos/                 
+│   ├── demo_hamming.py    # Interactive demos
+│   ├── demo_rs.py
 ├── docs/
 │   └── ecc-theory.pdf     # Theory + explanation
 ├── pyproject.toml

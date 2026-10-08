@@ -1,5 +1,6 @@
 import pytest
-from src import hamming_build_gen_matrix, hamming_encode, transmit, hamming_decode
+from src.utils import linear_encode, transmit
+from src.hamming import hamming_build_gen_matrix, hamming_decode
 import galois
 
 GF2 = galois.GF(2)
@@ -25,8 +26,8 @@ def test_single_error_correction(m = 3):
     G, H = hamming_build_gen_matrix(m)
     message = GF2([1, 0, 1, 1])
     
-    codeword = hamming_encode(message, G)
-    received, _ = transmit(codeword, num_errors=1)
+    codeword = linear_encode(message, G)
+    received = transmit(codeword, GF2, num_errors=1)
     decoded, error_type = hamming_decode(received, H)
     
     assert error_type == 1, "Should detect 1 error"
@@ -37,8 +38,8 @@ def test_no_error(m = 3):
     G, H = hamming_build_gen_matrix(m)
     message = GF2([1, 0, 1, 1])
     
-    codeword = hamming_encode(message, G)
-    received, _ = transmit(codeword, num_errors=0)
+    codeword = linear_encode(message, G)
+    received = transmit(codeword, GF2, num_errors=0)
     decoded, error_type = hamming_decode(received, H)
     
     assert error_type == 0, "Should detect no error"
@@ -49,8 +50,8 @@ def test_two_error_detection(m = 3):
     G, H = hamming_build_gen_matrix(m)
     message = GF2([1, 0, 1, 1])
     
-    codeword = hamming_encode(message, G)
-    received, _ = transmit(codeword, num_errors=2)
+    codeword = linear_encode(message, G)
+    received = transmit(codeword, GF2, num_errors=2)
     decoded, error_type = hamming_decode(received, H)
     
     assert error_type == 2, "Should detect 2 errors (uncorrectable)"

@@ -24,23 +24,6 @@ def hamming_build_gen_matrix(m):
     
     return G, H
 
-def hamming_encode(message, G):
-    """Encode message using generator matrix G."""
-    codeword = message @ G
-    return codeword
-
-def transmit(codeword, num_errors=None):
-    """Add random errors to codeword (0, 1, or 2)."""
-    if num_errors is None:
-        num_errors = random.randint(0, 2)
-    
-    n = len(codeword)
-    error_positions = random.sample(range(n), min(num_errors, n))
-    error = GF2([1 if i in error_positions else 0 for i in range(n)])
-    
-    received = codeword + error
-    return received, error_positions
-
 def hamming_decode(received, H):
     """Decode received word using parity matrix H (SECDED logic)."""
     n = H.shape[1]
@@ -73,4 +56,3 @@ def hamming_decode(received, H):
     corrected_word[error_pos] ^= GF2(1)
     
     return corrected_word[:k], 1  # One error corrected
-

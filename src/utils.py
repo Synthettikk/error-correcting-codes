@@ -1,0 +1,46 @@
+import numpy as np
+import galois
+
+def linear_encode(message, G):
+    """Encode message using generator matrix G (works for any linear code)."""
+    codeword = message @ G
+    return codeword
+
+def make_poly(coeffs, field):
+    """coeffs in order 'small degree first'"""
+    return galois.Poly(coeffs[::-1], field=field)
+
+def transmit(c, field, num_errors=None, error_vector=None):
+    """
+    Adds errors to the codeword.
+
+    Args:
+        c: codeword (array)
+        field: finite Galois field
+        num_errors: number of random errors to inject (ignored if error_vector is given)
+        error_vector: specific error vector to add (optional, in field elements)
+
+    Returns:
+        r: received word with errors
+    """
+    n = len(c)
+    
+    if error_vector is not None:
+        # Use provided error vector
+        e = field(error_vector)  # Ensure it's in the field
+        if len(e) != n:
+            raise ValueError(f"error_vector length {len(e)} != codeword length {n}")
+    else:
+        # Generate random errors
+        if num_errors is None:
+            num_errors = np.random.randint(0, n)
+
+        error_positions = np.random.choice(n, size=num_errors, replace=False)
+        error_values = field(np.random.randint(1, field.order, size=num_errors))
+        
+        e = field(np.zeros(n, dtype=int))
+        e[error_positions] = error_values
+    
+    # Corrupted codeword
+    r = c + e
+    return r
