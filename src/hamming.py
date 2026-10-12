@@ -1,5 +1,4 @@
 import galois #for GF2 arithmetics
-import random # for errors
 import numpy as np
 
 GF2 = galois.GF(2)
@@ -7,7 +6,6 @@ GF2 = galois.GF(2)
 def hamming_build_gen_matrix(m):
     """Build SECDED Hamming [2^m, 2^m - m - 1, 4] generator and parity matrices."""
     n = 2**m
-    k = n - (m + 1)
     H = []
     
     H.append([1] * n)
