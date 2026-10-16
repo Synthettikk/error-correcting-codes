@@ -8,7 +8,7 @@ Implement and understand classic ECC:
 - **Hamming SECDED** ✅ (done)
 - **Reed Solomon codes** ✅ (done)
 - **LDPC codes** ✅ (done) 
-- **Random codes** (in progress)
+- **Random codes** ✅ (done) 
 
 Each module includes **theory**, **implementation**, and **tests** to validate understanding.
 
@@ -70,27 +70,36 @@ LDPC Demo - Error correction rate
 python -m demos.demo_ldpc
 ```
 
+Random Codes Demo - Prange's iterations number
+```bash
+python -m demos.demo_random
+```
+
 ## 📁 Project Structure
 
 ```python
 error-correcting-codes/
+├── demos/                 
+│   ├── demo_hamming.py    # Example demos
+│   ├── demo_rs.py
+│   ├── demo_ldpc.py
+│   └── demo_random.py    
+├── docs/
+│   └── ecc-theory.pdf     # Theory, explanation and examples
 ├── src/
 │   ├── __init__.py
 │   ├── hamming.py         # Hamming SECDED implementation
 │   ├── rs.py              # Reed-Solomon codes implementation
 │   ├── ldpc.py            # LDPC codes + error correction rate
+│   ├── random_codes.py    # random codes with Prange decoder
 │   ├── utils.py           # Utilities
 │   └── README.md          # Implementation choices
 ├── tests/                 
 │   ├── test_hamming.py    # Pytest tests
 │   ├── test_rs.py   
 │   ├── test_ldpc.py  
-├── demos/                 
-│   ├── demo_hamming.py    # Interactive demos
-│   ├── demo_rs.py
-│   ├── demo_ldpc.py
-├── docs/
-│   └── ecc-theory.pdf     # Theory, explanation and examples
+│   └── test_random.py     
+├── .gitignore
 ├── pyproject.toml
 └── README.md
 ```
